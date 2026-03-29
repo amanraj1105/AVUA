@@ -1,0 +1,167 @@
+"use client";
+
+import type { ReactNode } from "react";
+import Link from "next/link";
+import type { SectorData } from "@/data/energy";
+
+
+interface FooterProps {
+  data: SectorData["footer"];
+}
+
+const socialIcons: Record<string, ReactNode> = {
+  LinkedIn: (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+  ),
+  X: (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  ),
+  Facebook: (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+    </svg>
+  ),
+  Instagram: (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+    </svg>
+  ),
+};
+
+export default function Footer({ data }: FooterProps) {
+  return (
+    <footer
+      className="w-full pt-16 pb-8"
+      style={{
+        background: "linear-gradient(135deg, #2B1845 0%, #4A2080 50%, #6B3FAF 100%)",
+      }}
+    >
+      <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-20">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
+          {/* Brand + Socials */}
+          <div className="flex flex-col gap-6">
+            {/* Logo */}
+            <div className="flex items-center gap-1">
+              <span className="text-3xl font-black text-white tracking-tight" style={{ letterSpacing: "-0.04em" }}>
+                avua
+              </span>
+              <span className="text-xs font-bold text-purple-300 align-super" style={{ marginTop: "-4px" }}>
+                ®
+              </span>
+            </div>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-3">
+              {data.socials.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="w-9 h-9 rounded-full flex items-center justify-center text-white transition-all duration-200 hover:scale-110"
+                  style={{
+                    background: "rgba(255,255,255,0.12)",
+                    border: "1px solid rgba(255,255,255,0.15)",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.22)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.12)";
+                  }}
+                >
+                  {socialIcons[social.label] ?? <span className="text-sm">{social.label[0]}</span>}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h4 className="text-white font-semibold mb-5 text-base">Services</h4>
+            <ul className="flex flex-col gap-3">
+              {data.services.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-purple-200 hover:text-white transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="text-white font-semibold mb-5 text-base">Company</h4>
+            <ul className="flex flex-col gap-3">
+              {data.company.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-purple-200 hover:text-white transition-colors break-all"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Mobile App */}
+          <div>
+            <div
+              className="rounded-2xl p-6 flex flex-col gap-5"
+              style={{
+                background: "rgba(255,255,255,0.08)",
+                border: "1px solid rgba(255,255,255,0.12)",
+              }}
+            >
+              <div>
+                <h4 className="text-white font-bold text-lg mb-1">Apply on the go</h4>
+                <p className="text-purple-200 text-sm">Get real-time job updates on our app</p>
+              </div>
+              <div className="flex items-center gap-3">
+                {/* App Store */}
+                <a
+                  href="#"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center bg-white text-gray-900 hover:bg-purple-50 transition-colors"
+                  aria-label="App Store"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                  </svg>
+                </a>
+                {/* Google Play */}
+                <a
+                  href="#"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center bg-white text-gray-900 hover:bg-purple-50 transition-colors"
+                  aria-label="Google Play"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                    <path d="M3.18 23.9c.34.19.72.26 1.1.19l12.19-12.2L13 8.46 3.18 23.9zm18.42-10.86L19 11.62l-3.35 3.35 3.35 3.35 2.63-1.44c.75-.41.75-1.53-.03-1.94zM1.49.76L13.48 12.76 10.14 16.1.96 1.42C.57.74.85-.07 1.49.76zM13.48 11.24L1.49 23.24c-.64.83-.92.02-.53-.66L10.14 7.9l3.34 3.34z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom divider + copyright */}
+        <div
+          className="pt-6 border-t text-center"
+          style={{ borderColor: "rgba(255,255,255,0.12)" }}
+        >
+          <p className="text-sm text-purple-300">{data.copyright}</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
