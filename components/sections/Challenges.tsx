@@ -11,7 +11,7 @@ const employerIcons = [
   "/iconify-icon → SVG-1.svg",
   "/iconify-icon → SVG-2.svg",
   "/Paper.svg",
-  "/Globe.svg",
+  "/globe.svg",
   "/iconify-icon → SVG-3.svg",
   "/iconify-icon → SVG.svg",
 ];

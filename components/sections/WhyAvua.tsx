@@ -9,7 +9,7 @@ interface WhyAvuaProps {
 const customIcons = [
   "/SVG.svg",
   "/SVG-1.svg",
-  "/Globe.svg",
+  "/globe.svg",
   "/SVG-2.svg",
 ];
 
