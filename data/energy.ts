@@ -15,6 +15,8 @@ export const energyData = {
     heroBadgeBg: "#EDE4FF",
     heroBadgeText: "#7D22F5",
     announcementBg: "#2B1845",
+    buttonGradient: "linear-gradient(to right, #AC7EF4, #6226C0)",
+    buttonShadow: "0 6px 20px rgba(98, 38, 192, 0.35)",
   },
   hero: {
     badge: "Energy Recruitment Reimagined",
@@ -272,9 +274,9 @@ export const energyData = {
       description: "Whether you're managing upstream oil and gas operations, commissioning nuclear facilities, developing renewable energy projects, or maintaining power infrastructure, avua accelerates your talent acquisition. Our platform specialises in contract-based and project-specific hiring across all energy sub-sectors including petroleum engineering, nuclear safety, wind and solar energy, Hydroelectric power, energy storage systems, and grid modernisation.",
       stats: [
         { value: "85%", label: "Reduction in time-to-hire" },
-        { label: "Lower recruitment costs", icon: "↓" },
-        { label: "Access global talent", icon: "🌐" },
-        { label: "Ensure compliance", icon: "✓" },
+        { label: "Access global talent", sublabel: "Across all energy sectors" },
+        { label: "Lower recruitment costs", sublabel: "Compared to traditional agencies" },
+        { label: "Ensure compliance", sublabel: "With automated documentation" },
       ],
     },
     professionals: {
@@ -283,7 +285,7 @@ export const energyData = {
       features: [
         { label: "Direct access", sublabel: "To verified energy sector employers" },
         { label: "Industry-specific resume tools", sublabel: "For technical roles" },
-        { label: "Project-based opportunities", sublabel: "With clear project details" },
+        { label: "Project-based opportunities", sublabel: "With clear requirements" },
         { label: "Career development resources", sublabel: "For energy professionals" },
       ],
     },

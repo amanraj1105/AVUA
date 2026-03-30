@@ -8,9 +8,7 @@ import WhyAvua from "@/components/sections/WhyAvua";
 import Challenges from "@/components/sections/Challenges";
 import HireProcess from "@/components/sections/HireProcess";
 import FutureRecruitment from "@/components/sections/FutureRecruitment";
-import RolesGrid from "@/components/sections/RolesGrid";
-import CareerSection from "@/components/sections/CareerSection";
-import CTABanner from "@/components/sections/CTABanner";
+
 import Footer from "@/components/sections/Footer";
 
 interface SectorPageProps {
@@ -54,12 +52,7 @@ export default async function SectorPage({ params }: SectorPageProps) {
         <HireProcess data={data.hireProcess} theme={data.theme} />
         {/* 5. Why avua? The Future of Energy Recruitment */}
         <FutureRecruitment data={data.futureRecruitment} theme={data.theme} />
-        {/* 6. Roles We Cover Across All Energy Sectors */}
-        <RolesGrid data={data.roles} theme={data.theme} />
-        {/* 7. For Professionals: Build Your Energy Career */}
-        <CareerSection data={data.careerSection} theme={data.theme} />
-        {/* 8. Ready to Transform Energy Hiring? */}
-        <CTABanner data={data.cta} theme={data.theme} />
+        
       </main>
       <Footer data={data.footer} />
     </div>
