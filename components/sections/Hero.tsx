@@ -158,7 +158,7 @@ export default function Hero({ data, theme }: HeroProps) {
         <div style={{ position: "relative", width: "100%" }}>
 
           {/* "15 Relevant Candidates" — top-right, overlapping image corner */}
-          <div
+          {/* <div
             style={{
               position: "absolute",
               top: "0px",
@@ -197,7 +197,7 @@ export default function Hero({ data, theme }: HeroProps) {
                 {data.floatingCard.extra}
               </span>
             </div>
-          </div>
+          </div> */}
 
           {/* Dashboard image */}
           <div style={{ paddingTop: "44px", paddingBottom: "64px" }}>
@@ -219,7 +219,7 @@ export default function Hero({ data, theme }: HeroProps) {
           </div>
 
           {/* "Credentials Verified" — bottom-left, overlapping image */}
-          <div
+          {/* <div
             style={{
               position: "absolute",
               bottom: "28px",
@@ -248,7 +248,7 @@ export default function Hero({ data, theme }: HeroProps) {
             <span style={{ fontSize: "13px", fontWeight: 600, color: "#111827" }}>
               {data.credentials}
             </span>
-          </div>
+          </div> */}
 
         </div>
       </div>
