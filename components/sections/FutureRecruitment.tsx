@@ -7,130 +7,195 @@ interface FutureRecruitmentProps {
 
 export default function FutureRecruitment({ data, theme }: FutureRecruitmentProps) {
   return (
-    <section
-      className="w-full py-24"
-      style={{ background: "#F8F7FF" }}
-    >
-      <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-20">
-        {/* Header */}
-        <div className="text-center mb-14">
-          <p
-            className="text-sm font-semibold mb-4"
-            style={{ color: theme.primary }}
-          >
+    <section style={{ width: "100%", background: "#ffffff", padding: "64px 0" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 80px" }}>
+
+        {/* ── Header ── */}
+        <div style={{ textAlign: "center", marginBottom: "48px" }}>
+          <p style={{ fontSize: "14px", fontWeight: 600, color: theme.primary, marginBottom: "12px" }}>
             {data.sectionLabel}
           </p>
-          <h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight mb-5"
-            style={{ color: "#0F0F1A" }}
-          >
+          <h2 style={{
+            fontSize: "clamp(36px, 4.5vw, 52px)",
+            fontWeight: 900,
+            lineHeight: 1.15,
+            color: "#0F0F1A",
+            marginBottom: "18px",
+          }}>
             {data.title}{" "}
             <span style={{ color: theme.primary }}>{data.titleHighlight}</span>
-            {data.titleEnd}
+            {data.titleEnd && <><br />{data.titleEnd}</>}
           </h2>
-          <p className="text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          <p style={{
+            fontSize: "15px",
+            color: "#6B7280",
+            lineHeight: 1.7,
+            maxWidth: "640px",
+            margin: "0 auto",
+          }}>
             {data.subtitle}
           </p>
         </div>
 
-        {/* Two cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* For Energy Employers */}
-          <div
-            className="rounded-3xl p-8 flex flex-col gap-6"
-            style={{
-              background: "white",
-              border: `2px solid ${theme.primary}25`,
-              borderTop: `3px solid ${theme.primary}`,
-            }}
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ background: "#EDE4FF" }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke={theme.primary} strokeWidth={1.5} className="w-5 h-5">
+        {/* ── Cards grid ── */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+
+          {/* ── Employers Card ── */}
+          <div style={{
+            background: "#fff",
+            borderRadius: "16px",
+            border: "1px solid #E5E7EB",
+            borderTop: `3px solid ${theme.primary}`,
+            padding: "32px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+          }}>
+            {/* Title row */}
+            <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+              <div style={{
+                width: "44px", height: "44px", borderRadius: "10px",
+                background: "#F3F0FF",
+                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke={theme.primary} strokeWidth={1.5} width={20} height={20}>
                   <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold" style={{ color: "#0F0F1A" }}>
+              <h3 style={{ fontSize: "20px", fontWeight: 700, color: "#0F0F1A", margin: 0 }}>
                 {data.employers.title}
               </h3>
             </div>
 
-            <p className="text-sm text-gray-500 leading-relaxed">
+            {/* Description */}
+            <p style={{ fontSize: "14px", color: "#6B7280", lineHeight: 1.75, margin: 0 }}>
               {data.employers.description}
             </p>
 
-            {/* Stats row */}
-            <div className="grid grid-cols-2 gap-3 mt-auto">
+            {/* Stats 2×2 */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
               {data.employers.stats.map((stat, i) => (
-                <div
-                  key={i}
-                  className="rounded-xl p-4"
-                  style={{ background: "#F8F7FF", border: "1px solid #EDE4FF" }}
-                >
+                <div key={i} style={{
+                  background: "#F9FAFB",
+                  border: "1px solid #EFEFEF",
+                  borderRadius: "12px",
+                  padding: "16px 18px",
+                }}>
                   {"value" in stat && stat.value ? (
                     <>
-                      <div className="text-2xl font-black" style={{ color: theme.primary }}>
+                      {/* Trending up icon */}
+                      <svg viewBox="0 0 20 20" fill="none" width={16} height={16} style={{ marginBottom: "6px" }}>
+                        <polyline points="2,14 7,8 11,11 18,4" stroke={theme.primary} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                        <polyline points="13,4 18,4 18,9" stroke={theme.primary} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                      </svg>
+                      <div style={{ fontSize: "28px", fontWeight: 900, color: "#0F0F1A", lineHeight: 1 }}>
                         {stat.value}
                       </div>
-                      <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
+                      <div style={{ fontSize: "12px", color: "#9CA3AF", marginTop: "4px" }}>
+                        {stat.label}
+                      </div>
                     </>
                   ) : (
-                    <div className="flex items-center gap-2">
-                      <span style={{ color: theme.primary }} className="text-sm font-bold">✓</span>
-                      <span className="text-sm text-gray-600 font-medium">{stat.label}</span>
-                    </div>
+                    <>
+                      {/* 2×2 grid icon */}
+                      <svg viewBox="0 0 20 20" fill="none" width={16} height={16} style={{ marginBottom: "6px" }}>
+                        <rect x="3" y="3" width="6" height="6" rx="1.5" stroke={theme.primary} strokeWidth={1.6} />
+                        <rect x="11" y="3" width="6" height="6" rx="1.5" stroke={theme.primary} strokeWidth={1.6} />
+                        <rect x="3" y="11" width="6" height="6" rx="1.5" stroke={theme.primary} strokeWidth={1.6} />
+                        <rect x="11" y="11" width="6" height="6" rx="1.5" stroke={theme.primary} strokeWidth={1.6} />
+                      </svg>
+                      <div style={{ fontSize: "14px", fontWeight: 600, color: "#1F2937" }}>
+                        {stat.label}
+                      </div>
+                      {"sublabel" in stat && (stat as { label: string; sublabel?: string }).sublabel && (
+                        <div style={{ fontSize: "12px", color: "#9CA3AF", marginTop: "3px" }}>
+                          {(stat as { label: string; sublabel: string }).sublabel}
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               ))}
             </div>
           </div>
 
-          {/* For Energy Professionals */}
-          <div
-            className="rounded-3xl p-8 flex flex-col gap-6"
-            style={{
-              background: "white",
-              border: "2px solid #3B82F625",
-              borderTop: "3px solid #3B82F6",
-            }}
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ background: "#EFF6FF" }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth={1.5} className="w-5 h-5">
-                  <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" strokeLinecap="round" strokeLinejoin="round" />
+          {/* ── Professionals Card ── */}
+          <div style={{
+            background: "#fff",
+            borderRadius: "16px",
+            border: "1px solid #E5E7EB",
+            borderTop: "3px solid #3B82F6",
+            padding: "32px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+          }}>
+            {/* Title row */}
+            <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+              <div style={{
+                width: "44px", height: "44px", borderRadius: "10px",
+                background: "#EFF6FF",
+                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth={1.5} width={20} height={20}>
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="12" cy="7" r="4" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold" style={{ color: "#0F0F1A" }}>
+              <h3 style={{ fontSize: "20px", fontWeight: 700, color: "#0F0F1A", margin: 0 }}>
                 {data.professionals.title}
               </h3>
             </div>
 
-            <p className="text-sm text-gray-500 leading-relaxed">
+            {/* Description */}
+            <p style={{ fontSize: "14px", color: "#6B7280", lineHeight: 1.75, margin: 0 }}>
               {data.professionals.description}
             </p>
 
-            {/* Feature list */}
-            <div className="grid grid-cols-2 gap-3 mt-auto">
-              {data.professionals.features.map((feature, i) => (
-                <div
-                  key={i}
-                  className="rounded-xl p-4"
-                  style={{ background: "#F8FAFF", border: "1px solid #DBEAFE" }}
-                >
-                  <div className="text-sm font-semibold text-gray-800 mb-0.5">
-                    {feature.label}
+            {/* Features 2×2 */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+              {data.professionals.features.map((feature, i) => {
+                const amberIcons = [
+                  /* alert circle */
+                  <svg key="0" viewBox="0 0 20 20" fill="none" width={16} height={16}>
+                    <circle cx="10" cy="10" r="7" stroke="#F59E0B" strokeWidth={1.6} />
+                    <path d="M10 7v3.5M10 13h.01" stroke="#F59E0B" strokeWidth={1.6} strokeLinecap="round" />
+                  </svg>,
+                  /* globe */
+                  <svg key="1" viewBox="0 0 20 20" fill="none" width={16} height={16}>
+                    <circle cx="10" cy="10" r="7" stroke="#F59E0B" strokeWidth={1.6} />
+                    <path d="M3 10h14M10 3c-2 2.5-3 4.8-3 7s1 4.5 3 7M10 3c2 2.5 3 4.8 3 7s-1 4.5-3 7" stroke="#F59E0B" strokeWidth={1.3} strokeLinecap="round" />
+                  </svg>,
+                  /* document */
+                  <svg key="2" viewBox="0 0 20 20" fill="none" width={16} height={16}>
+                    <rect x="4" y="2" width="12" height="16" rx="2" stroke="#F59E0B" strokeWidth={1.6} />
+                    <path d="M7 7h6M7 10h6M7 13h4" stroke="#F59E0B" strokeWidth={1.4} strokeLinecap="round" />
+                  </svg>,
+                  /* shield */
+                  <svg key="3" viewBox="0 0 20 20" fill="none" width={16} height={16}>
+                    <path d="M10 2l6 2.5v5C16 13.5 13 17 10 18c-3-1-6-4.5-6-8.5v-5L10 2z" stroke="#F59E0B" strokeWidth={1.6} strokeLinejoin="round" />
+                  </svg>,
+                ];
+                return (
+                  <div key={i} style={{
+                    background: "#F9FAFB",
+                    border: "1px solid #EFEFEF",
+                    borderRadius: "12px",
+                    padding: "16px 18px",
+                  }}>
+                    <div style={{ marginBottom: "6px" }}>{amberIcons[i % 4]}</div>
+                    <div style={{ fontSize: "14px", fontWeight: 600, color: "#1F2937" }}>
+                      {feature.label}
+                    </div>
+                    <div style={{ fontSize: "12px", color: "#9CA3AF", marginTop: "3px" }}>
+                      {feature.sublabel}
+                    </div>
                   </div>
-                  <div className="text-xs text-gray-400">{feature.sublabel}</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
+
         </div>
       </div>
     </section>

@@ -147,3 +147,9 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+
+/* Hero CTA buttons — force rounded-rect (override any Tailwind pill defaults) */
+#hero-cta-primary,
+#hero-cta-secondary {
+  border-radius: 10px !important;
+}
