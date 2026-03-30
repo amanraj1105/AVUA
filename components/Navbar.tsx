@@ -1,45 +1,64 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const navLinks = [
   {
     label: "Products",
     href: "#",
-    hasDropdown: true,
-    children: [
-      { label: "avua Hire", href: "#" },
-      { label: "avua Pool", href: "#" },
-      { label: "AI Screening", href: "#" },
-    ],
+    
   },
   {
     label: "Sectors",
     href: "#",
     hasDropdown: true,
+    isMega: true,
     children: [
-      { label: "Energy", href: "/sectors/energy" },
-      { label: "Healthcare", href: "/sectors/healthcare" },
-      { label: "Robotics", href: "/sectors/robotics" },
+      {
+        label: "Energy", href: "/sectors/energy",
+        desc: "Connect with skilled professionals driving innovation in renewable and traditional energy solutions.",
+        bg: "#DDF7C6"
+      },
+      
+      {
+        label: "Healthcare", href: "/sectors/healthcare",
+        desc: "Discover qualified talent supporting patient care, medical innovation, and health services.",
+        bg: "#B5F5EB"
+      },
+      
+      
+      {
+        label: "Robotics", href: "/sectors/robotics",
+        desc: "Skilled robotics professionals across automation, AI systems, and advanced engineering disciplines.",
+        bg: "#F9E1A3"
+      },
     ],
   },
   { label: "Job Openings", href: "#", hasDropdown: false },
   {
     label: "Resources",
     href: "#",
-    hasDropdown: true,
-    children: [
-      { label: "Blog", href: "#" },
-      { label: "Resume Examples", href: "#" },
-      { label: "Help Center", href: "#" },
-    ],
+    
   },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = (label: string) => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    setOpenDropdown(label);
+  };
+
+  const handleMouseLeave = () => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 250); // 250ms delay keeps it open while moving
+  };
 
   return (
     <header
@@ -55,7 +74,7 @@ export default function Navbar() {
     >
       <div
         style={{
-          maxWidth: "1280px",
+          maxWidth: "100%",
           margin: "0 auto",
           padding: "0 80px",
           display: "flex",
@@ -110,9 +129,9 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <div
               key={link.label}
-              style={{ position: "relative" }}
-              onMouseEnter={() => link.hasDropdown && setOpenDropdown(link.label)}
-              onMouseLeave={() => setOpenDropdown(null)}
+              style={{ position: (link as any).isMega ? "static" : "relative" }}
+              onMouseEnter={() => link.hasDropdown && handleMouseEnter(link.label)}
+              onMouseLeave={() => link.hasDropdown && handleMouseLeave()}
             >
               <Link
                 href={link.href}
@@ -123,9 +142,10 @@ export default function Navbar() {
                   padding: "8px 14px",
                   fontSize: "14.5px",
                   fontWeight: 500,
-                  color: "#374151",
+                  color: openDropdown === link.label && link.label === "Sectors" ? "#fff" : "#374151",
+                  background: openDropdown === link.label && link.label === "Sectors" ? "#3F2B66" : "transparent",
                   textDecoration: "none",
-                  borderRadius: "8px",
+                  borderRadius: "999px",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -150,37 +170,95 @@ export default function Navbar() {
 
               {/* Dropdown */}
               {link.hasDropdown && link.children && openDropdown === link.label && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: 0,
-                    marginTop: "4px",
-                    width: "180px",
-                    background: "#fff",
-                    borderRadius: "12px",
-                    border: "1px solid #F0F0F0",
-                    padding: "6px 0",
-                    boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
-                    zIndex: 100,
-                  }}
-                >
-                  {link.children.map((child) => (
-                    <Link
-                      key={child.label}
-                      href={child.href}
-                      style={{
-                        display: "block",
-                        padding: "9px 16px",
-                        fontSize: "13.5px",
-                        color: "#4B5563",
-                        textDecoration: "none",
-                      }}
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
+                (link as any).isMega ? (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      left: 0,
+                      width: "100%",
+                      background: "#fff",
+                      borderTop: "1px solid #E5E7EB",
+                      borderBottom: "1px solid #E5E7EB",
+                      boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
+                      padding: "40px 0",
+                      zIndex: 100,
+                      cursor: "default"
+                    }}
+                  >
+                    <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 80px" }}>
+                      <div style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr 1fr",
+                        columnGap: "32px",
+                        rowGap: "0",
+                      }}>
+                        {link.children.map((child: any, idx) => (
+                           <Link key={child.label} href={child.href} style={{ 
+                             textDecoration: "none", display: "flex", gap: "16px",
+                             paddingTop: idx >= 3 ? "32px" : "0",
+                             paddingBottom: idx < 3 ? "32px" : "0",
+                             borderTop: idx >= 3 ? "1px solid #E5E7EB" : "none",
+                             alignItems: "flex-start",
+                           }}>
+                             <div style={{
+                               width: "56px", height: "56px", borderRadius: "50%", flexShrink: 0,
+                               background: child.bg || "#eee", display: "flex", alignItems: "center", justifyContent: "center",
+                               color: "#1F2937"
+                             }}>
+                               {child.label === "Energy" && <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><rect x="6" y="5" width="12" height="15" rx="2" /><path d="M9 3h6" strokeLinecap="round" /><path d="M11 9l-2 3h4l-2 3" strokeLinecap="round" strokeLinejoin="round" /></svg>}
+                               {child.label === "Construction" && <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M12 4a8 8 0 00-8 8h16a8 8 0 00-8-8z" /><path d="M3 16h18M12 4v4 M8 12h8" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                               {child.label === "Healthcare" && <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinejoin="round" /><path d="M9 12h6M12 9v6" strokeLinecap="round" /></svg>}
+                               {child.label === "Life Sciences" && <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(45 12 12)" /><ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(-45 12 12)" /><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>}
+                               {child.label === "Technology" && <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2" /><path d="M9 9h6v6H9z" /><path d="M9 2v3 M15 2v3 M9 19v3 M15 19v3 M2 9h3 M2 15h3 M19 9h3 M19 15h3" strokeLinecap="round" /></svg>}
+                               {child.label === "Robotics" && <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><rect x="5" y="9" width="14" height="12" rx="3" /><path d="M12 9V3M9 3h6" strokeLinecap="round" /><circle cx="12" cy="15" r="2" /></svg>}
+                             </div>
+                             <div>
+                               <h4 style={{ margin: "0 0 6px 0", fontSize: "16px", fontWeight: 700, color: "#1F2937" }}>
+                                 {child.label}
+                               </h4>
+                               <p style={{ margin: 0, fontSize: "13.5px", lineHeight: 1.5, color: "#6B7280" }}>
+                                 {child.desc}
+                               </p>
+                             </div>
+                           </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      left: 0,
+                      marginTop: "4px",
+                      width: "180px",
+                      background: "#fff",
+                      borderRadius: "12px",
+                      border: "1px solid #F0F0F0",
+                      padding: "6px 0",
+                      boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
+                      zIndex: 100,
+                    }}
+                  >
+                    {link.children.map((child: any) => (
+                      <Link
+                        key={child.label}
+                        href={child.href}
+                        style={{
+                          display: "block",
+                          padding: "9px 16px",
+                          fontSize: "13.5px",
+                          color: "#4B5563",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )
               )}
             </div>
           ))}

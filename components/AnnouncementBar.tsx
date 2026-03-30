@@ -11,7 +11,7 @@ export default function AnnouncementBar({ data, theme }: AnnouncementBarProps) {
       className="w-full"
       style={{ background: theme.announcementBg, padding: "10px 0" }}
     >
-      <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-20">
+      <div className="max-w-full mx-auto px-6 sm:px-10 lg:px-20">
         <div className="flex items-center justify-center flex-wrap" style={{ gap: "0" }}>
           {data.items.map((item, index) => (
             <div key={index} className="flex items-center" style={{ gap: "7px" }}>

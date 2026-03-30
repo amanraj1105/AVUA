@@ -11,7 +11,7 @@ interface CTABannerProps {
 export default function CTABanner({ data, theme }: CTABannerProps) {
   return (
     <section className="w-full py-8 px-4">
-      <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-20">
+      <div className="max-w-full mx-auto px-6 sm:px-10 lg:px-20">
         <div
           className="relative overflow-hidden rounded-3xl px-8 py-14 sm:px-12 lg:px-16"
           style={{

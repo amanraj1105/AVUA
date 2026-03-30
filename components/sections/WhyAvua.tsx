@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import Image from "next/image";
 import type { SectorData } from "@/data/energy";
 
 interface WhyAvuaProps {
@@ -6,58 +6,52 @@ interface WhyAvuaProps {
   theme: SectorData["theme"];
 }
 
-const iconMap: Record<string, ReactNode> = {
-  "🤖": (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} width="20" height="20">
-      <rect x="3" y="8" width="18" height="12" rx="2" />
-      <path d="M9 8V6a3 3 0 016 0v2" />
-      <circle cx="9" cy="14" r="1" fill="currentColor" stroke="none" />
-      <circle cx="15" cy="14" r="1" fill="currentColor" stroke="none" />
-      <path d="M9 18h6" strokeLinecap="round" />
-    </svg>
-  ),
-  "✅": (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} width="20" height="20">
-      <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ),
-  "🌐": (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} width="20" height="20">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18M12 3a15 15 0 000 18" />
-    </svg>
-  ),
-  "⚡": (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} width="20" height="20">
-      <path d="M13 2L4.5 13.5H12L11 22l8.5-11.5H12L13 2z" strokeLinejoin="round" />
-    </svg>
-  ),
-  "💙": (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} width="20" height="20">
-      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
-    </svg>
-  ),
-  "🦾": (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} width="20" height="20">
-      <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
-    </svg>
-  ),
-};
+const customIcons = [
+  "/SVG.svg",
+  "/SVG-1.svg",
+  "/Globe.svg",
+  "/SVG-2.svg",
+];
 
 export default function WhyAvua({ data, theme }: WhyAvuaProps) {
   return (
     <section
       style={{
         width: "100%",
-        background: "#FFFFFF",
-        paddingTop: "80px",
-        paddingBottom: "80px",
+        background: theme.bg || "#F9F8FF",
+        paddingTop: "64px",
       }}
     >
       <div
         style={{
-          maxWidth: "1280px",
+          position: "relative",
+          width: "100%",
+          background: "#FFFFFF",
+          borderRadius: "64px 64px 0 0",
+          paddingTop: "80px",
+          paddingBottom: "80px",
+        }}
+      >
+        {/* Gradient curved top line */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            pointerEvents: "none",
+            borderRadius: "64px 64px 0 0",
+            padding: "2px",
+            background: `linear-gradient(180deg, ${theme.primary} 0%, transparent 120px)`,
+            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
+      <div
+        style={{
+          maxWidth: "100%",
           margin: "0 auto",
           paddingLeft: "80px",
           paddingRight: "80px",
@@ -69,7 +63,7 @@ export default function WhyAvua({ data, theme }: WhyAvuaProps) {
             style={{
               color: "#1A1A2E",
               fontSize: "clamp(2rem, 3.5vw, 3.25rem)",
-              fontWeight: 900,
+              fontWeight: 500,
               lineHeight: 1.15,
               margin: "0 0 16px 0",
             }}
@@ -132,9 +126,13 @@ export default function WhyAvua({ data, theme }: WhyAvuaProps) {
                     flexShrink: 0,
                   }}
                 >
-                  {iconMap[feature.icon] ?? (
-                    <span style={{ fontSize: "1.2rem" }}>{feature.icon}</span>
-                  )}
+                  <Image
+                    src={customIcons[index % customIcons.length]}
+                    alt={feature.title}
+                    width={24}
+                    height={24}
+                    style={{ objectFit: "contain" }}
+                  />
                 </div>
 
                 {/* Title + Description */}
@@ -204,6 +202,7 @@ export default function WhyAvua({ data, theme }: WhyAvuaProps) {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );

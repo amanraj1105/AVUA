@@ -1,4 +1,19 @@
 import type { SectorData } from "@/data/energy";
+import Image from "next/image";
+
+const employerIcons = [
+  "/Trending_Down.svg",
+  "/Vector.svg",
+  "/Building_02.svg",
+  "/Data.svg",
+];
+
+const professionalIcons = [
+  "/Wavy_Check.svg",
+  "/Vector.svg",
+  "/Notebook.svg",
+  "/Suitcase.svg",
+];
 
 interface FutureRecruitmentProps {
   data: SectorData["futureRecruitment"];
@@ -7,8 +22,33 @@ interface FutureRecruitmentProps {
 
 export default function FutureRecruitment({ data, theme }: FutureRecruitmentProps) {
   return (
-    <section style={{ width: "100%", background: "#ffffff", padding: "64px 0" }}>
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 80px" }}>
+    <section style={{ width: "100%", background: theme.bg || "#F9F8FF", paddingTop: "64px" }}>
+      <div style={{
+          position: "relative",
+          width: "100%",
+          background: "#FFFFFF",
+          borderRadius: "64px 64px 0 0",
+          paddingTop: "64px",
+          paddingBottom: "64px",
+        }}>
+        {/* Gradient curved top line */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            pointerEvents: "none",
+            borderRadius: "64px 64px 0 0",
+            padding: "2px",
+            background: `linear-gradient(180deg, ${theme.primary} 0%, transparent 120px)`,
+            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
+        <div style={{ maxWidth: "100%", margin: "0 auto", paddingLeft: "80px", paddingRight: "80px" }}>
 
         {/* ── Header ── */}
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
@@ -17,7 +57,7 @@ export default function FutureRecruitment({ data, theme }: FutureRecruitmentProp
           </p>
           <h2 style={{
             fontSize: "clamp(36px, 4.5vw, 52px)",
-            fontWeight: 900,
+            fontWeight: 500,
             lineHeight: 1.15,
             color: "#0F0F1A",
             marginBottom: "18px",
@@ -58,9 +98,7 @@ export default function FutureRecruitment({ data, theme }: FutureRecruitmentProp
                 background: "#F3F0FF",
                 display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
               }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke={theme.primary} strokeWidth={1.5} width={20} height={20}>
-                  <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <Image src="/11.svg" alt="Employer" width={24} height={24} style={{ objectFit: "contain" }} />
               </div>
               <h3 style={{ fontSize: "20px", fontWeight: 700, color: "#0F0F1A", margin: 0 }}>
                 {data.employers.title}
@@ -83,35 +121,23 @@ export default function FutureRecruitment({ data, theme }: FutureRecruitmentProp
                 }}>
                   {"value" in stat && stat.value ? (
                     <>
-                      {/* Trending up icon */}
-                      <svg viewBox="0 0 20 20" fill="none" width={16} height={16} style={{ marginBottom: "6px" }}>
-                        <polyline points="2,14 7,8 11,11 18,4" stroke={theme.primary} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                        <polyline points="13,4 18,4 18,9" stroke={theme.primary} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                      </svg>
-                      <div style={{ fontSize: "28px", fontWeight: 900, color: "#0F0F1A", lineHeight: 1 }}>
+                      <div style={{ fontSize: "28px", fontWeight: 800, color: "#0F0F1A", marginBottom: "8px", lineHeight: 1 }}>
                         {stat.value}
                       </div>
-                      <div style={{ fontSize: "12px", color: "#9CA3AF", marginTop: "4px" }}>
-                        {stat.label}
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <Image src={employerIcons[i]} alt="icon" width={16} height={16} style={{ objectFit: "contain" }} />
+                        <div style={{ fontSize: "12px", color: "#6B7280" }}>{stat.label}</div>
                       </div>
                     </>
                   ) : (
                     <>
-                      {/* 2×2 grid icon */}
-                      <svg viewBox="0 0 20 20" fill="none" width={16} height={16} style={{ marginBottom: "6px" }}>
-                        <rect x="3" y="3" width="6" height="6" rx="1.5" stroke={theme.primary} strokeWidth={1.6} />
-                        <rect x="11" y="3" width="6" height="6" rx="1.5" stroke={theme.primary} strokeWidth={1.6} />
-                        <rect x="3" y="11" width="6" height="6" rx="1.5" stroke={theme.primary} strokeWidth={1.6} />
-                        <rect x="11" y="11" width="6" height="6" rx="1.5" stroke={theme.primary} strokeWidth={1.6} />
-                      </svg>
-                      <div style={{ fontSize: "14px", fontWeight: 600, color: "#1F2937" }}>
+                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#1F2937", marginBottom: "8px" }}>
                         {stat.label}
                       </div>
-                      {"sublabel" in stat && (stat as { label: string; sublabel?: string }).sublabel && (
-                        <div style={{ fontSize: "12px", color: "#9CA3AF", marginTop: "3px" }}>
-                          {(stat as { label: string; sublabel: string }).sublabel}
-                        </div>
-                      )}
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <Image src={employerIcons[i]} alt="icon" width={16} height={16} style={{ objectFit: "contain" }} />
+                        <div style={{ fontSize: "12px", color: "#6B7280" }}>{(stat as any).sublabel}</div>
+                      </div>
                     </>
                   )}
                 </div>
@@ -137,10 +163,7 @@ export default function FutureRecruitment({ data, theme }: FutureRecruitmentProp
                 background: "#EFF6FF",
                 display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
               }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth={1.5} width={20} height={20}>
-                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="12" cy="7" r="4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <Image src="/Suitcase.svg" alt="Professionals" width={24} height={24} style={{ objectFit: "contain" }} />
               </div>
               <h3 style={{ fontSize: "20px", fontWeight: 700, color: "#0F0F1A", margin: 0 }}>
                 {data.professionals.title}
@@ -155,27 +178,6 @@ export default function FutureRecruitment({ data, theme }: FutureRecruitmentProp
             {/* Features 2×2 */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
               {data.professionals.features.map((feature, i) => {
-                const amberIcons = [
-                  /* alert circle */
-                  <svg key="0" viewBox="0 0 20 20" fill="none" width={16} height={16}>
-                    <circle cx="10" cy="10" r="7" stroke="#F59E0B" strokeWidth={1.6} />
-                    <path d="M10 7v3.5M10 13h.01" stroke="#F59E0B" strokeWidth={1.6} strokeLinecap="round" />
-                  </svg>,
-                  /* globe */
-                  <svg key="1" viewBox="0 0 20 20" fill="none" width={16} height={16}>
-                    <circle cx="10" cy="10" r="7" stroke="#F59E0B" strokeWidth={1.6} />
-                    <path d="M3 10h14M10 3c-2 2.5-3 4.8-3 7s1 4.5 3 7M10 3c2 2.5 3 4.8 3 7s-1 4.5-3 7" stroke="#F59E0B" strokeWidth={1.3} strokeLinecap="round" />
-                  </svg>,
-                  /* document */
-                  <svg key="2" viewBox="0 0 20 20" fill="none" width={16} height={16}>
-                    <rect x="4" y="2" width="12" height="16" rx="2" stroke="#F59E0B" strokeWidth={1.6} />
-                    <path d="M7 7h6M7 10h6M7 13h4" stroke="#F59E0B" strokeWidth={1.4} strokeLinecap="round" />
-                  </svg>,
-                  /* shield */
-                  <svg key="3" viewBox="0 0 20 20" fill="none" width={16} height={16}>
-                    <path d="M10 2l6 2.5v5C16 13.5 13 17 10 18c-3-1-6-4.5-6-8.5v-5L10 2z" stroke="#F59E0B" strokeWidth={1.6} strokeLinejoin="round" />
-                  </svg>,
-                ];
                 return (
                   <div key={i} style={{
                     background: "#F9FAFB",
@@ -183,12 +185,12 @@ export default function FutureRecruitment({ data, theme }: FutureRecruitmentProp
                     borderRadius: "12px",
                     padding: "16px 18px",
                   }}>
-                    <div style={{ marginBottom: "6px" }}>{amberIcons[i % 4]}</div>
-                    <div style={{ fontSize: "14px", fontWeight: 600, color: "#1F2937" }}>
+                    <div style={{ fontSize: "14px", fontWeight: 700, color: "#1F2937", marginBottom: "8px" }}>
                       {feature.label}
                     </div>
-                    <div style={{ fontSize: "12px", color: "#9CA3AF", marginTop: "3px" }}>
-                      {feature.sublabel}
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <Image src={professionalIcons[i % professionalIcons.length]} alt="icon" width={16} height={16} style={{ objectFit: "contain" }} />
+                      <div style={{ fontSize: "12px", color: "#6B7280" }}>{feature.sublabel}</div>
                     </div>
                   </div>
                 );
@@ -197,6 +199,7 @@ export default function FutureRecruitment({ data, theme }: FutureRecruitmentProp
           </div>
 
         </div>
+      </div>
       </div>
     </section>
   );
